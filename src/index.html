@@ -109,6 +109,7 @@
 
         <div class="panel-row panel-row-middle">
             <div class="panel-cell panel-cell-left">
+                <span>left</span>
                 <div class="thumb-box">
                     <div class="thumb-box-outer">
                         <div class="thumb-box-inner">
@@ -129,12 +130,30 @@
                 </div>
             </div><!-- ./panel-cell -->
 
-            <div class="panel-cell panel-cell-center panel-cell-fill">
-                <img height="40" width="80" src="./assets/images/arrow-34285.png"
-                     style="padding-right: 10px; padding-left: 10px;"/>
+            <div class="panel-cell panel-cell-centre">
+                <span>centre</span>
+                <div class="thumb-box">
+                    <div class="thumb-box-outer">
+                        <div class="thumb-box-inner">
+                            <canvas class="thumb" width=224 height=224 id="centre-thumb"></canvas>
+                        </div>
+                        <button class="record-button" id="centre" title="Add current camera view as a sample">
+                            <span>Add Sample</span></button>
+                    </div>
+                    <p>
+                        <span id="centre-total">0</span> samples
+                    </p>
+                    <p>
+                        <button id="clear-centre" class="big-buttons" title="Clear">
+                            <img width="32" height="32" src="./assets/images/Crystal128-eraser.svg"/>
+                            <span id="clr-centre">CLEAR</span>
+                        </button>
+                    </p>
+                </div>
             </div><!-- ./panel-cell -->
 
             <div class="panel-cell panel-cell-right">
+                <span>right</span>
                 <div class="thumb-box">
                     <div class="thumb-box-outer">
                         <div class="thumb-box-inner">

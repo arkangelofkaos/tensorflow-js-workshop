@@ -25,6 +25,11 @@ function () {
         }
     };
 
+    game.stopMoving = function () {
+        game.rightRequested = false;
+        game.leftRequested = false;
+    };
+
     game.keyPressed = function (keyCode) {
         let result = false;
 
@@ -257,6 +262,7 @@ function () {
         ordina.breakout = {};
         ordina.breakout.startGamePlay = game.startGamePlay;
         ordina.breakout.keyPressed = game.keyPressed;
+        ordina.breakout.stopMoving = game.stopMoving;
     };
 
 

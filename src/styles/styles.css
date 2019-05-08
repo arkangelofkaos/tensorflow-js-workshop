@@ -267,6 +267,7 @@ header b {
 }
 
 [data-active="left"] .panel-cell-left .thumb-box-outer,
+[data-active="centre"] .panel-cell-centre .thumb-box-outer,
 [data-active="right"] .panel-cell-right .thumb-box-outer {
     box-shadow: 0 0 4px 4px #ffaa00;
 }

@@ -1,7 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 
-const CONTROLS = ['left', 'right'];
-const CONTROL_CODES = [37, 39];
+const CONTROLS = ['left', 'right', 'centre'];
+const CONTROL_CODES = [37, 39, 0];
 
 export function init() {
     document.getElementById('controller').style.display = '';
@@ -29,7 +29,13 @@ export function startBreakout() {
 }
 
 export function predictClass(classId) {
-    ordina.breakout.keyPressed(CONTROL_CODES[classId]);
+    let controlCode = CONTROL_CODES[classId];
+    if (controlCode === 0) {
+        mouseDown = false;
+        ordina.breakout.stopMoving();
+    } else {
+        ordina.breakout.keyPressed(controlCode);
+    }
     document.body.setAttribute('data-active', CONTROLS[classId]);
 }
 
@@ -52,13 +58,15 @@ export function setSampleHandler(handler) {
 }
 
 let mouseDown = false;
-const totals = [0, 0];
+const totals = [0, 0, 0]; //left, right, centre
 
 const leftButton = document.getElementById('left');
 const rightButton = document.getElementById('right');
+const centreButton = document.getElementById('centre');
 
 const clearLeftButton = document.getElementById('clear-left');
 const clearRightButton = document.getElementById('clear-right');
+const clearCentreButton = document.getElementById('clear-centre');
 
 const thumbDisplayed = {};
 
@@ -73,7 +81,10 @@ async function handler(label) {
         total.innerText = totals[label]++;
         await tf.nextFrame();
     }
-    document.body.removeAttribute('data-active');
+
+    if (label !== 2) {
+        document.body.removeAttribute('data-active');
+    }
 }
 
 async function clear(label) {
@@ -86,8 +97,12 @@ leftButton.addEventListener('mouseup', () => mouseDown = false);
 rightButton.addEventListener('mousedown', () => handler(1));
 rightButton.addEventListener('mouseup', () => mouseDown = false);
 
+centreButton.addEventListener('mousedown', () => handler(2));
+centreButton.addEventListener('mouseup', () => mouseDown = false);
+
 clearLeftButton.addEventListener('click', () => clear(0));
 clearRightButton.addEventListener('click', () => clear(1));
+clearCentreButton.addEventListener('click', () => clear(2));
 
 export function drawThumb(img, label) {
     if (thumbDisplayed[label] == null) {

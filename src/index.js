@@ -3,9 +3,9 @@ import * as tf from '@tensorflow/tfjs';
 import {Webcam} from './webcam';
 import {ControllerDataset} from "./controller-dataset";
 
-// The number of classes we want to predict. In this workshop, we will be
-// predicting 2 classes (left and right).
-const NUM_CLASSES = 2;
+// The number of classes we want to predict.
+// Predicting 3 classes (left, right and centre).
+const NUM_CLASSES = 3;
 
 // A webcam class that generates Tensors from the images from the webcam.
 const webcam = new Webcam(document.getElementById('webcam'));
