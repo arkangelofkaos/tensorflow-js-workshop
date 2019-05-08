@@ -1,3 +1,5 @@
+import * as tf from '@tensorflow/tfjs';
+
 const CONTROLS = ['left', 'right'];
 const CONTROL_CODES = [37, 39];
 

@@ -1,3 +1,5 @@
+import * as tf from '@tensorflow/tfjs';
+
 /**
  * A dataset for webcam controls which allows the user to add sample Tensors
  * for particular labels. This object will concat them into two large xs and ys.
