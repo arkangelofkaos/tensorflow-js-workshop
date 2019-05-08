@@ -1,4 +1,5 @@
 import * as ui from './ui';
+import * as tf from '@tensorflow/tfjs';
 import {Webcam} from './webcam';
 
 // The number of classes we want to predict. In this workshop, we will be
@@ -17,12 +18,24 @@ let model = undefined;
 // Loads mobilenet and returns a model that returns the internal activation
 // we'll use as input to our classifier model.
 async function loadTruncatedMobileNet() {
+    const mobilenet = await tf.loadLayersModel(
+        'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json');
+
+    // Return a model that outputs an internal activation.
+    const layer = mobilenet.getLayer('conv_pw_13_relu');
+    return tf.model({inputs: mobilenet.inputs, outputs: layer.output});
 }
 
 // When the UI buttons are pressed, read a frame from the webcam and associate
 // it with the class label given by the button.
 // Left, right are labels 0, 1 respectively.
 ui.setSampleHandler(label => {
+    tf.tidy(() => {
+        const img = webcam.capture();
+
+        // Draw the preview thumbnail.
+        ui.drawThumb(img, label);
+    });
 });
 
 /**
@@ -48,6 +61,12 @@ async function init() {
     }
 
     console.log('Init - finished');
+
+    truncatedMobileNet = await loadTruncatedMobileNet();
+    // Warm up the model. This uploads weights to the GPU and compiles the WebGL
+    // programs so the first time we collect data from the webcam it will be quick.
+
+    tf.tidy(() => truncatedMobileNet.predict(webcam.capture()));
 
     ui.init();
 }
